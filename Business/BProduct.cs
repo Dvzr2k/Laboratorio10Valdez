@@ -25,15 +25,7 @@ namespace Business
 
             return result;
         }
-        public Product GetById(int Id)
-        {
-
-            var products = data.Get();
-
-            var result = products.FirstOrDefault(x => x.ProductId == Id);
-
-            return result;
-        }
+        
 
         public void CreateProduct(Product product)
         {
@@ -46,5 +38,12 @@ namespace Business
             
             data.Delete(productId);
         }
+
+        public Product GetProductById(int productId)
+        {
+            var products = data.Get();
+            return products.FirstOrDefault(p => p.ProductId == productId);
+        }
+
     }
 }

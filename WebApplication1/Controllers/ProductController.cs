@@ -23,6 +23,7 @@ namespace WebApplication1.Controllers
                 Id = x.ProductId,
                 Name = x.Name,
                 Price = x.Price,
+                Brand=x.Brand,
             }).ToList();
 
 
@@ -56,6 +57,7 @@ namespace WebApplication1.Controllers
                         
                         Name = model.Name,
                         Price = model.Price,
+                        Brand = model.Brand,
                         
                     };
                     business.CreateProduct(product);
@@ -96,18 +98,30 @@ namespace WebApplication1.Controllers
         }
 
         // GET: ProductController/Delete/5
+        
         public ActionResult Delete(int id)
         {
             BProduct business = new BProduct();
-            Product product = business.GetById(id);
-            ProductModel productModel = new ProductModel
+            Product product = business.GetProductById(id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            ProductModel model = new ProductModel
             {
                 Id = product.ProductId,
                 Name = product.Name,
                 Price = product.Price,
+                Brand = product.Brand,
+               
             };
 
-            return View(productModel);
+            return View(model);
+
+
+
         }
 
         // POST: ProductController/Delete/5
@@ -119,13 +133,13 @@ namespace WebApplication1.Controllers
             {
                 BProduct business = new BProduct();
                 business.DeleteProduct(id);
-
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
                 return View();
             }
+
         }
     }
 }

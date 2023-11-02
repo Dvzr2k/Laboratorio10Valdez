@@ -8,7 +8,7 @@ namespace Data
 {
     public class DProduct
     {
-        private string connectionString = "Data Source=LAB1504-11\\SQLEXPRESS;Initial Catalog=Tecsup;User ID=sa;Password=123456";
+        private string connectionString = "Data Source=LAPTOP-KUI6COAV\\SQLEXPRESS;Initial Catalog=Tecsup;User ID=dvaldez1;Password=terminator";
 
         public List<Product> Get()
         {
@@ -32,7 +32,9 @@ namespace Data
                                 Name = reader["name"].ToString(),
                                 Price = Convert.ToDecimal(reader["price"]),
                                 Stock = Convert.ToInt32(reader["stock"]),
-                                Active = Convert.ToBoolean(reader["active"])
+                                Active = Convert.ToBoolean(reader["active"]),
+                                Brand = reader["brand"].ToString()
+
                             };
                             products.Add(product);
                         }
@@ -60,6 +62,7 @@ namespace Data
                     command.Parameters.AddWithValue("@Price", product.Price);
                     command.Parameters.AddWithValue("@Stock", product.Stock);
                     command.Parameters.AddWithValue("@Active", product.Active);
+                    command.Parameters.AddWithValue("@Brand", product.Brand);
 
                     command.ExecuteNonQuery();
                 }
